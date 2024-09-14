@@ -1,0 +1,3 @@
+# PROYECTO FINAL BACKEND II - Roxana Abugauch -  Es un e-commerce de productos de supermercado. Conectado a una base de datos en la nube. Con Mongo Atlas y Compass
+# Para eso, se ha usado NodeJS, Servidores, Express, Router, como Motor de Plantillas Handlebars, Websockets, MongoDB y Mongoose, Cookies, Sessions, Autenticación con Bcrypt y JWT, Passport, Mongo-Connect, Dotenv y Arquitectura por Capas.
+# Para poder ejecutarlo, hay que clonar el repositorio, iniciar Node e instalar todas las dependecias usadas.
