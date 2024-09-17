@@ -8,8 +8,8 @@ import ProductManager from "./daos/db/product-manager-db.js";
 import "./database.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-//import sessionRouter from "./routes/sessions.js";
-//import initializePassport from "./config/passport.config.js";
+//import router from "./routes/sessions.route.js";
+import initializePassport from "./config/passport.config.js";
 import passport from "passport";
 import cookieParser from "cookie-parser";
 import config from './config/config.js';
@@ -32,10 +32,10 @@ app.use(session({
 }));
 
 
-//Pasport
-//initializePassport();
-//app.use(passport.initialize());
-//app.use(passport.session());
+//Passport
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
