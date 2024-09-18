@@ -2,14 +2,15 @@ import UserDAO from "../daos/user.dao.js";
 import UserDTO from "../dtos/user.dto.js";
 
 class UserRepository {
-    async getUserByEmail(email) {
+    async getUserByEmail(email, includePassword = false) {
         const user = await UserDAO.findUserByEmail(email);
-        return new UserDTO(user);
+        if (!user) return null;
+        return includePassword ? user : new UserDTO(user);
     }
 
     async getUserById(id) {
         const user = await UserDAO.findUserById(id);
-        return new UserDTO(user);
+        return user ? new UserDTO(user) : null;
     }
 
     async createUser(userData) {
@@ -19,7 +20,7 @@ class UserRepository {
 
     async updateUser(id, updateData) {
         const updatedUser = await UserDAO.updateUser(id, updateData);
-        return new UserDTO(updatedUser);
+        return updatedUser ? new UserDTO(updatedUser) : null;
     }
 }
 
