@@ -6,6 +6,7 @@ import ViewController from '../controllers/view.controller.js';
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 import ProductController from '../controllers/product.controller.js';
+import { Admin, User } from '../middlewares/auth.js';
 
 
 const router = express.Router();
@@ -30,12 +31,12 @@ const authenticateJWT = (req, res, next) => {
 };
 
 // Ruta de productos en tiempo real
-router.get("/realtimeproducts", (req, res) => {
+router.get("/realtimeproducts", Admin,  (req, res) => {
     res.render("realtimeproducts");
 });
 
 // Ruta de productos
-router.get("/productos", authenticateJWT, async (req, res) => {
+router.get("/home", User,  authenticateJWT, async (req, res) => {
     const { page = 1, limit = 10, sort = 'asc' } = req.query;
     try {
         const productos = await ProductService.getProducts({ page, limit, sort });

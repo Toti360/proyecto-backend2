@@ -19,8 +19,12 @@ class ProductService {
         });
     }
 
-    async getProducts(filter = {}, options = {}) {
-        return await ProductRepository.getProducts(filter, options);
+    async getProducts(options) {
+        try {
+            return await ProductRepository.getProducts(options);
+        } catch (error) {
+            throw new Error("Error en ProductService: " + error.message);
+        }
     }
 
     async getProductById(id) {
