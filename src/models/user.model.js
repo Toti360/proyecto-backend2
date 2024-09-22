@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
     },
     cart_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'carts', 
+        ref: 'Carts', 
         required: true 
     },    
     password: {

@@ -1,15 +1,20 @@
 import CartDAO from "../daos/cart.dao.js";
 import CartDTO from "../dtos/cart.dto.js";
+import CartModel from "../models/cart.model.js";
 
 class CartRepository {
     async crearCarrito() {
-        const cart = await CartDAO.crearCarrito();
-        return new CartDTO(cart);
+        const newCart = new CartModel({ products: [] });
+        return await newCart.save();
     }
 
     async getCarritoById(cartId) {
         const cart = await CartDAO.getCarritoById(cartId);
         return new CartDTO(cart);
+    }
+
+    async updateCarrito(cartId, updateData) {
+        return await CartModel.findByIdAndUpdate(cartId, updateData, { new: true });
     }
 
     async obtenerCarritos() {

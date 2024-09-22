@@ -11,7 +11,7 @@ const TicketSchema = new mongoose.Schema({
         unique: true 
     },
   purchase_datetime: { 
-    //fecha y hora exacta en la cual se formalizó la compra
+    //fecha y hora exacta en la cual se hizo la compra
         type: Date, 
         default: Date.now 
     },
@@ -27,4 +27,7 @@ const TicketSchema = new mongoose.Schema({
     }
 });
 
-export const ticketModel = mongoose.model(ticketCollection, TicketSchema);
+export const TicketModel = mongoose.model(ticketCollection, TicketSchema);
+
+export default TicketModel;
+

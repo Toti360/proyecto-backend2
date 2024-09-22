@@ -47,7 +47,8 @@ app.get("/", (req, res) => {
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
-app.use("/api/sessions", sessionsRouter); // Corrected route
+app.use("/api/sessions", sessionsRouter);
+//app.use("/:cid/purchase", cartsRouter);
 
 const httpServer = app.listen(config.port, () => {
     console.log(`El servidor está escuchando en el puerto ${config.port}`);

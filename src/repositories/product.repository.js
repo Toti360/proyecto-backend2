@@ -1,5 +1,6 @@
 import ProductDAO from "../daos/product.dao.js";
 import ProductDTO from "../dtos/product.dto.js";
+import ProductModel from "../models/product.model.js";
 
 class ProductRepository {
     async addProduct(productData) {
@@ -26,6 +27,14 @@ class ProductRepository {
     async deleteProduct(id) {
         const product = await ProductDAO.delete(id);
         return product ? new ProductDTO(product) : null;
+    }
+
+    async getProductById(productId) {
+        return await ProductModel.findById(productId);
+    }
+
+    async updateProduct(productId, updateData) {
+        return await ProductModel.findByIdAndUpdate(productId, updateData, { new: true });
     }
 }
 

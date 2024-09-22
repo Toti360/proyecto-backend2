@@ -1,7 +1,19 @@
 import UserDAO from "../daos/user.dao.js";
 import UserDTO from "../dtos/user.dto.js";
+import UserModel from "../models/user.model.js";
 
 class UserRepository {
+
+    async createUser(userData) {
+        try {
+            const user = new UserModel(userData);
+            return await user.save();
+        } catch (error) {
+            console.error('Error al crear el usuario en la base de datos:', error.message);
+            throw new Error(error);
+        }
+    }
+
     async getUserByEmail(email, includePassword = false) {
         const user = await UserDAO.findUserByEmail(email);
         if (!user) return null;
@@ -11,11 +23,6 @@ class UserRepository {
     async getUserById(id) {
         const user = await UserDAO.findUserById(id);
         return user ? new UserDTO(user) : null;
-    }
-
-    async createUser(userData) {
-        const newUser = await UserDAO.createUser(userData);
-        return new UserDTO(newUser);
     }
 
     async updateUser(id, updateData) {
