@@ -36,15 +36,19 @@ router.get("/realtimeproducts", Admin,  (req, res) => {
 });
 
 // Ruta de productos
-router.get("/home", User,  authenticateJWT, async (req, res) => {
+router.get("/home", authenticateJWT, async (req, res) => {
     const { page = 1, limit = 10, sort = 'asc' } = req.query;
     try {
         const productos = await ProductService.getProducts({ page, limit, sort });
+        if (!productos.docs || productos.docs.length === 0) {
+            return res.render("home", { productos: [], message: "No se encontraron productos", user: req.user });
+        }
         res.render("home", { productos: productos.docs, ...productos, user: req.user });
     } catch (error) {
         res.status(500).json({ error: "Error al obtener los productos" });
     }
 });
+
 
 // Ver carrito por ID
 router.get("/carts/:cid", authenticateJWT, async (req, res) => {

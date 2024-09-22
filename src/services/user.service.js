@@ -6,10 +6,16 @@ class UserService {
     async registerUser(userData) {
         try {
             const { first_name, last_name, email, password, age, role } = userData;
-
+    
+            // Verificar si ya existe un usuario con el mismo email
+            const existingUser = await UserRepository.getUserByEmail(email);
+            if (existingUser) {
+                throw new Error('El Usuario ya existe');
+            }
+    
             // Crear un nuevo carrito
             const newCart = await CartRepository.createCart();
-
+    
             // Crear el usuario y asignarle el carrito
             const hashedPassword = createHash(password);
             const newUser = {
@@ -21,20 +27,20 @@ class UserService {
                 role,
                 cart_id: newCart._id,  // Asignar el ID del carrito
             };
-
+    
             const userCreated = await UserRepository.createUser(newUser);
         
-        if (!userCreated) {
-            throw new Error('Error al crear el usuario en la base de datos');
+            if (!userCreated) {
+                throw new Error('Error al crear el usuario en la base de datos');
+            }
+    
+            return userCreated;
+        } catch (error) {
+            console.error('Error en registerUser:', error.message);
+            throw new Error(`Error al registrar usuario: ${error.message}`);
         }
-
-        return userCreated;
-    } catch (error) {
-        console.error('Error en registerUser:', error.message);  // Asegúrate de mostrar el error completo
-        throw new Error(`Error al registrar usuario: ${error.message}`);
     }
-
-    }
+    
 
     async loginUser(email, password) {
         try {

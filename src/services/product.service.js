@@ -19,9 +19,10 @@ class ProductService {
         });
     }
 
-    async getProducts(options) {
+    async getProducts(filter, options) {
         try {
-            return await ProductRepository.getProducts(options);
+            const products = await ProductRepository.getProducts(filter, options);
+            return products;
         } catch (error) {
             throw new Error("Error en ProductService: " + error.message);
         }
