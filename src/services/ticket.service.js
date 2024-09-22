@@ -33,7 +33,7 @@ class TicketService {
 
         // Eliminar productos no disponibles del carrito
         cart.products = cart.products.filter(item => !productosNoDisponibles.includes(item.product));
-        await CartRepository.updateCart(cart._id, cart);
+        await CartRepository.updateCarrito(cart._id, cart);
 
         return { ticket, productosNoDisponibles };
     }
